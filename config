@@ -68,8 +68,8 @@ exec --no-startup-id xrandr --output VGA-1-1 --right-of LVDS-1-1 --auto
 
 
 # my current setup
-set $firstMonitor LVDS-1-1
-set $secondMonitor VGA-1-1
+#set $firstMonitor LVDS-1-1
+#set $secondMonitor VGA-1-1
 
 #set $firstMonitor LVDS1
 #set $secondMonitor LVDS1
@@ -83,16 +83,35 @@ set $secondMonitor VGA-1-1
 #set $firstMonitor DVI-0
 #set $secondMonitor DVI-1
 
-workspace 1 output $firstMonitor
-workspace 2 output $firstMonitor
-workspace 3 output $firstMonitor
-workspace 4 output $firstMonitor
-workspace 5 output $firstMonitor
-workspace 6 output $secondMonitor
-workspace 7 output $secondMonitor
-workspace 8 output $secondMonitor
-workspace 9 output $secondMonitor
-workspace 10 output $secondMonitor
+workspace 1 output LVDS-1-1
+workspace 4 output LVDS-1-1
+workspace 2 output LVDS-1-1
+workspace 3 output LVDS-1-1
+workspace 5 output LVDS-1-1
+workspace 6 output VGA-1-1
+workspace 7 output VGA-1-1
+workspace 8 output VGA-1-1
+workspace 9 output VGA-1-1
+workspace 10 output VGA-1-1
+
+#Press $mod (super) and X to exit - check toolbar for next choices
+bindsym $mod+m mode "$mode_monitor"
+
+set $mode_monitor System (l) laptop, (h) home
+mode "$mode_monitor" {
+    bindsym l exec --no-startup-id ~/.config/i3/scripts/screenlayout-laptop.sh laptop, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/scripts/screenlayout-dual.sh home, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+
+
+
+#bindsym $mod+m exec --no-startup-id xrandr --output LVDS-1-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output DP-1-1 --off --output VGA-1-1 --off --output HDMI-1-1 --off
+
 
 # switch to workspace
 bindsym $mod+1 workspace 1
@@ -106,6 +125,7 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1; workspace 1
 bindsym $mod+Shift+2 move container to workspace 2; workspace 2
@@ -117,7 +137,6 @@ bindsym $mod+Shift+7 move container to workspace 7; workspace 7
 bindsym $mod+Shift+8 move container to workspace 8; workspace 8
 bindsym $mod+Shift+9 move container to workspace 9; workspace 9
 bindsym $mod+Shift+0 move container to workspace 10; workspace 10
-
 
 
 #####################################################################################################################
@@ -358,7 +377,7 @@ assign [class="Xed|xed|Brackets|Atom|Code|Geany"]                               
 assign [class="Inkscape"]                                                           → 3
 
 # Workspace 4 Gimp
-assign [class="Gimp"]                                                               → 4
+assign [class="Gimp"]                                                               → 7
 
 # Workspace 5 Images and meld
 assign [class="ristretto|Ristretto|shotwell|Shotwell|Xviewer|Nitrogen"]             → 5
@@ -378,7 +397,7 @@ assign [class="Nemo|Thunar|Caja|nautilus|Nautilus"]                             
 assign [class="Geary|Evolution"]                                                    → 9
 
 # Workspace 10 Skype
-assign [class="Skype|skype"]                                                    → 10
+assign [class="Skype|skype"]                                                        → 10
 #fix for spotify not moving to workspace 10
 for_window [class="Skype"] move to workspace 10
 
@@ -431,10 +450,10 @@ for_window [class="Skype"] focus
 #exec --no-startup-id mintupdate-launcher
 
 # bluetooth
-exec --no-startup-id blueberry-tray
+#exec --no-startup-id blueberry-tray
 
 # network
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 
 # num lock activated
 exec_always --no-startup-id numlockx on
@@ -447,7 +466,7 @@ exec_always --no-startup-id numlockx on
 
 # volume
 #exec --no-startup-id pasystray
-exec --no-startup-id volumeicon
+#exec --no-startup-id volumeicon
 
 #variety
 #exec --no-startup-id variety
@@ -458,6 +477,8 @@ exec --no-startup-id volumeicon
 #Conky
 exec --no-startup-id conky -c ~/.config/i3/system-overview
 exec --no-startup-id conky -c ~/.config/i3/system-shortcuts
+
+exec --no-startup-id setxkbmap -option caps:escape
 
 
 #####################################################################################################################
@@ -471,14 +492,14 @@ bindsym $mod+Return exec --no-startup-id gnome-terminal;focus
 bindsym control+mod1+t exec --no-startup-id gnome-terminal; focus
 
 #System monitor
-bindsym control+Shift+Escape exec --no-startup-id xfce4-taskmanager;focus
+#bindsym control+Shift+Escape exec --no-startup-id xfce4-taskmanager;focus
 
 #settings
 #bindsym control+mod1+m exec --no-startup-id xfce4-settings-manager
 bindsym control+mod1+m exec --no-startup-id cinnamon-settings
 
 #catfish
-bindsym control+mod1+c exec --no-startup-id catfish;focus
+#bindsym control+mod1+c exec --no-startup-id catfish;focus
 
 #slimlock
 #archlabs conflict
@@ -553,8 +574,8 @@ bindsym control+mod1+e exec --no-startup-id evolution;workspace 9;focus
 #bindsym control+mod1+e exec --no-startup-id geary;workspace 9;focus
 
 #workspace 10 related
-bindsym $mod+F10 exec --no-startup-id spotify;workspace 10;focus
-bindsym control+mod1+s exec --no-startup-id spotify;workspace 10;focus
+#bindsym $mod+F10 exec --no-startup-id spotify;workspace 10;focus
+#bindsym control+mod1+s exec --no-startup-id spotify;workspace 10;focus
 
 
 
@@ -592,7 +613,7 @@ for_window [class="Imagewriter"] floating enable
 for_window [class="Font-manager"] floating enable
 for_window [class="Nitrogen"] floating disable
 for_window [class="Pavucontrol"] floating disable
-for_window [class="^Skype$"] floating enable
+for_window [class="^Skype$"] floating disable
 for_window [class="^Spotify$"] floating disable
 for_window [class="System-config-printer.py"] floating enable
 for_window [class="Unetbootin.elf"] floating enable
@@ -661,7 +682,7 @@ for_window [class="Terminator"] focus
 # resume wallpaper
 #bindsym mod1+Down exec --no-startup-id variety --resume
 
-exec_always feh --bg-scale  /home/asher/Pictures/tri-space.jpg
+exec_always feh --bg-scale  /home/asher/Pictures/space.png
 
 
 
@@ -823,11 +844,13 @@ exec_always --no-startup-id compton --config ~/.config/i3/compton.conf
 #####################################################################################################################
 #####################################################################################################################
 
-bar {
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-    height 25
-    workspace_buttons yes
-    font pango:Noto Sans 14
+#bar {
+
+    #height 25
+    #workspace_buttons yes
+    #font pango:Noto Sans 14
     #you can know the name via xrandr
     #output DVI-0
 
@@ -848,7 +871,7 @@ bar {
     # put hastag in front if not installed
 
 #status_command i3blocks
-status_command i3blocks -c ~/.config/i3/i3blocks.conf
+#status_command i3blocks -c ~/.config/i3/i3blocks.conf
 #status_command i3blocks -c ~/.config/i3/i3blocks-original.conf
 #status_command i3blocks -c ~/.config/i3/i3blocks-awesome.conf
 
@@ -863,18 +886,18 @@ status_command i3blocks -c ~/.config/i3/i3blocks.conf
 #status_command ~/.config/i3/start-conky-i3statusbar.sh
 
 
-colors {
-        background #2F2F2F
-        statusline #eeeeee
-        separator  #666666
+#colors {
+#        background #2F2F2F
+#        statusline #eeeeee
+#        separator  #666666
         #                     border  backgr. text
-        focused_workspace     #a9a9a9 #5f676a #eeeeee
-        active_workspace      #a9a9a9 #5f676a #a9a9a9
-        inactive_workspace    #a9a9a9 #222222 #a9a9a9
-        urgent_workspace      #a9a9a9 #d42121 #FFFFFF
-        }
+#        focused_workspace     #a9a9a9 #5f676a #eeeeee
+#        active_workspace      #a9a9a9 #5f676a #a9a9a9
+#        inactive_workspace    #a9a9a9 #222222 #a9a9a9
+#        urgent_workspace      #a9a9a9 #d42121 #FFFFFF
+#        }
 
-    }
+#    }
 
 
 # DarkGrey background with white text - not focus grey background - black text

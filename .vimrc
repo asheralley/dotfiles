@@ -11,6 +11,16 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " added nerdtree
 Plugin 'scrooloose/nerdtree'
+" added YouCompleteMe
+Plugin 'Valloric/YouCompleteMe'
+"added vim-airline
+
+Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-surround'
+Plugin 'SirVer/ultisnips'
+Plugin 'prettier/vim-prettier'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -19,6 +29,8 @@ filetype plugin indent on    " required
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 set number
 set relativenumber
